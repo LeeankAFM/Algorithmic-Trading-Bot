@@ -1,2 +1,2 @@
 # Algorithmic-Trading-Bot
-Este proyecto utiliza una arquitectura híbrida. Un script en MQL5 actúa como puente de ejecución en la terminal MetaTrader 5, mientras que el núcleo lógico corre en Python dentro de una instancia AWS EC2 (Windows Server) para aprovechar librerías avanzadas de Data Science que MQL5 no posee.
+Este proyecto utiliza una arquitectura híbrida. Un script en MQL5 actúa como puente de ejecución en la terminal MetaTrader 5, mientras que el núcleo lógico corre en Python dentro de una instancia AWS EC2 (Windows Server) para aprovechar librerías avanzadas de Data Science que MQL5 no posee y con esto pasa de ser una estrategia super compleja a simplemente una alerta automatica.
