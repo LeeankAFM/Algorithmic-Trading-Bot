@@ -1,0 +1,50 @@
+//@version=6
+indicator("Webhook JSON Sender Template", overlay = true)
+
+// =========================
+// 🔄 MAPEO AUTOMÁTICO DE SÍMBOLOS (EJEMPLO)
+// =========================
+string mt5Symbol = syminfo.ticker
+
+if str.contains(syminfo.ticker, "BTC")
+    mt5Symbol := "BTCUSD.sa"
+else if str.contains(syminfo.ticker, "ETH")
+    mt5Symbol := "ETHUSD.sa"
+else if str.contains(syminfo.ticker, "XRP")
+    mt5Symbol := "XRPUSD.sa"
+// Aquí solo dejas el ejemplo del mapeo, no la lógica de señales.
+
+// =========================
+// 🧩 INPUTS DE EJEMPLO
+// (Para probar el formato del mensaje)
+// =========================
+sideInput      = input.string("BUY",   "Side", options = ["BUY", "SELL"])
+entryInput     = input.float(0.0, "Entry price (ejemplo)")
+slInput        = input.float(0.0, "Stop Loss (ejemplo)")
+tp1Input       = input.float(0.0, "Take Profit 1 (ejemplo)")
+tp2Input       = input.float(0.0, "Take Profit 2 (ejemplo)")
+riskPercentInp = input.float(1.0, "Risk % (ejemplo)")
+
+// Trigger manual solo para pruebas
+triggerAlert = input.bool(false, "Disparar alerta JSON en esta barra")
+
+// =========================
+// 📡 CONSTRUCCIÓN DEL MENSAJE JSON
+// =========================
+string jsonMsg =
+     "{"
+     + "\"symbol\":\""    + mt5Symbol + "\","
+     + "\"side\":\""      + sideInput + "\","
+     + "\"entry\":"       + str.tostring(entryInput) + ","
+     + "\"sl\":"          + str.tostring(slInput)    + ","
+     + "\"tp1\":"         + str.tostring(tp1Input)   + ","
+     + "\"tp2\":"         + str.tostring(tp2Input)   + ","
+     + "\"risk_percent\":"+ str.tostring(riskPercentInp)
+     + "}"
+
+// =========================
+// 🔔 ALERTA
+// (Sólo muestra cómo se envía el JSON)
+// =========================
+if triggerAlert and barstate.isconfirmed
+    alert(jsonMsg, alert.freq_once_per_bar_close)
